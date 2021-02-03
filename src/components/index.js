@@ -35,8 +35,8 @@ function updateStructure(rec1, rec2) {
 		parent['height'] = rec1['height'];
 		parent['width'] = rec1['width'];
 		parent['children'] = [];
-		child['top'] = (rec2['top'].replace('px', '') - rec1['top'].replace('px', '')) + 'px';
-		child['left'] = (rec2['left'].replace('px', '') - rec1['left'].replace('px', '')) + 'px';
+		child['top'] = '0px';
+		child['left'] = '0px';
 		child['height'] = rec2['height'];
 		child['width'] = rec2['width'];
 		child['children'] = [];
