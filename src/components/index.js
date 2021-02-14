@@ -33,19 +33,19 @@ function contain(a, b) {
 				(w1 !== 0 && (l1 + w1 >= l2 + w2 && r1 + w1 >= r2 + w2))) ||
 			(h1 === 0 && width === 0)
 		) {
-			if (t1 != 0) {
+			if (!a.top) {
 				child.top = `${t2 - t1}px`;
 			}
-			if (l1 != 0) {
+			if (!a.left) {
 				child.left = `${l2 - l1}px`;
 			}
-			if (b1 != 0) {
+			if (!a.bottom) {
 				child.bottom = `${b2 - b1}px`;
 			}
-			if (r1 != 0) {
+			if (!a.right) {
 				child.right = `${r2 - r1}px`;
 			}
-			if (h1 != 0) {
+			if (!a.height) {
 				child.height = `${h2}px`;
 				child.width = `${w2}px`;
 			}
