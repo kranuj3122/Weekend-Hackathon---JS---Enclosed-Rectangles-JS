@@ -43,7 +43,7 @@ function contain(a, b) {
 				child.bottom = `${b2 - b1}px`;
 			}
 			if (r1 != 0) {
-				child.right = `${r2 - r1}`;
+				child.right = `${r2 - r1}px`;
 			}
 			if (h1 != 0) {
 				child.height = `${h2}px`;
