@@ -25,13 +25,10 @@ function contain(a, b) {
 	let h2 = b.height ? parseInt(b.height) : 0;
 	let w2 = b.width ? parseInt(b.width) : 0;
 
-	if (
-		t2 >= t1 && l2 >= l1 && r2 >= r1 && b2 >= b1
-	) {
-		if (
-			((h1 !== 0 && (t1 + h1 >= t2 + h2 && b1 + h1 >= b2 + h2)) &&
-				(w1 !== 0 && (l1 + w1 >= l2 + w2 && r1 + w1 >= r2 + w2))) ||
-			(h1 === 0 && width === 0)
+	if (t2 >= t1 && l2 >= l1 && r2 >= r1 && b2 >= b1) {
+		if ((a.height && (t1 + h1 >= t2 + h2 && b1 + h1 >= b2 + h2) &&
+			(l1 + w1 >= l2 + w2 && r1 + w1 >= r2 + w2)) ||
+			(!a.height)
 		) {
 			if (a.top) {
 				child.top = `${t2 - t1}px`;
