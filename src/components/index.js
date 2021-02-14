@@ -8,66 +8,52 @@
 
 const { Children } = require("react");
 
+function contain(a,b) {
+	let ans={};
+	let flag=0;
+	let t1=a.top?parseInt(a.top):0;
+	let b1=a.bottom?parseInt(a.bottom):0;
+	let l1=a.left?parseInt(a.left):0;
+	let r1=a.right?parseInt(a.right):0;
+	let h1=a.height?parseInt(a.height):0;
+	let w1=a.width?parseInt(a.width):0;
+
+	let t2=b.top?parseInt(b.top):0;
+	let b2=b.bottom?parseInt(b.bottom):0;
+	let l2=b.left?parseInt(b.left):0;
+	let r2=b.right?parseInt(b.right):0;
+	let h2=b.height?parseInt(b.height):0;
+	let w2=b.width?parseInt(b.width):0;
+	
+	if(
+		t2>=t1 && l2>=l1 && r2>=r1 && b2>=b1
+	){
+		if(
+			( (h1!==0 &&(t1+h1>=t2+h2 && b1+h1>=b2+h2)) &&
+			(w1!==0 && (l1+w1>=l2+w2 && r1+w1>=r2+w2)) ) || 
+			(h1===0 && width===0)
+		) {
+			ans={...a, children: [{...b, children: []}]};
+			flag=1;
+		}
+
+	}
+	if(flag===0) {
+		return -1;
+	}
+	return ans;
+}
 function updateStructure(rec1, rec2) {
-	let top1 = Number(rec1['top'].replace('px', ''));
-	let left1 = Number(rec1['left'].replace('px', ''));
-	let height1 = Number(rec1['height'].replace('px', ''));
-	let width1 = Number(rec1['width'].replace('px', ''));
-	let top2 = Number(rec2['top'].replace('px', ''));
-	let left2 = Number(rec2['left'].replace('px', ''));
-	let height2 = Number(rec2['height'].replace('px', ''));
-	let width2 = Number(rec2['width'].replace('px', ''));
-	let parent = {};
-	let child = {};
-	let flag = "";
-	if (top2 > top1 && top1 + height1 > top2 + height2 && left2 > left1 && left1 + width1 > left2 + width2) {
-		flag = "some";
-		parent['top'] = top1 + 'px';
-		parent['left'] = left1 + 'px';
-		parent['height'] = height1 + 'px';
-		parent['width'] = width1 + 'px';
-		parent['children'] = [];
-		child['top'] = (top2 - top1) + 'px';
-		child['left'] = (left2 - left1) + 'px';
-		child['height'] = height2;
-		child['width'] = width2;
-		child['children'] = [];
-		parent['children'].push(child);
+	let res=contain(rec1,rec2);
+	if(res!==-1)
+	{
+		return res;
 	}
-	else if (top1 == top2 && top1 + height1 == top2 + height2 && left1 == left2 && left1 + width1 == left2 + width2) {
-		flag = "some";
-		parent['top'] = top1 + 'px';
-		parent['left'] = left1 + 'px';
-		parent['height'] = height1 + 'px';
-		parent['width'] = width1 + 'px';
-		parent['children'] = [];
-		child['top'] = '0px';
-		child['left'] = '0px';
-		child['height'] = height2;
-		child['width'] = width2;
-		child['children'] = [];
-		parent['children'].push(child);
+	res=contains(rec2,rec1);
+	if(res!==-1) {
+		return res;
 	}
-	else if (top1 > top2 && top2 + height2 > top1 + height1 && left1 > left2 && left2 + width2 > left1 + width1) {
-		flag = "some";
-		parent['top'] = top2 + 'px';
-		parent['left'] = left2 + 'px';
-		parent['height'] = height2 + 'px';
-		parent['width'] = width2 + 'px';
-		parent['children'] = [];
-		child['top'] = (top1 - top2) + 'px';
-		child['left'] = (left1 - left2) + 'px';
-		child['height'] = height1;
-		child['width'] = width1;
-		child['children'] = [];
-		parent['children'].push(child);
-	}
-	if (flag == "") {
-		return rec1;
-	}
-	else {
-		return parent;
-	}
+	return rec1;
 	//write your code
 }
 
